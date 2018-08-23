@@ -11396,7 +11396,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"sInfo": "Wyniki od _START_ do _END_ dla wszystkich _TOTAL_ rezultatów",
 	
 	
 			/**
@@ -11417,7 +11417,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			"sInfoEmpty": "Wyniki od 0 do 0 dla wszystkich 0 rezultatów",
 	
 	
 			/**
@@ -11557,7 +11557,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Show _MENU_ entries",
+			"sLengthMenu": "Pokaż _MENU_ wyników",
 	
 	
 			/**
@@ -11581,7 +11581,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLoadingRecords": "Loading...",
+			"sLoadingRecords": "Wczytywanie...",
 	
 	
 			/**
@@ -11637,7 +11637,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			"sSearch": "Szukaj:",
 	
 	
 			/**

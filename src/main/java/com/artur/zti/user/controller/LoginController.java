@@ -17,6 +17,8 @@ public class LoginController {
     @GetMapping("/login")
     public String login() {
         //todo delete this
+//        if (userService.findByUsername("a")!=null)
+//            return "login";
 //        userService.save(new User("a", "a", "a", "a@a", UserRole.ADMIN.getRole()));
         return "login";
     }

@@ -29,6 +29,7 @@ public class UserDetailsServiceImplementation  implements UserDetailsService {
         logger.info("Load user: " + username);
         User user = userService.findByUsername(username);
         if(user == null){
+            logger.error("Uzytkownik o podanej nazwie nie istnieje w bazie.");
             throw new UsernameNotFoundException("Uzytkownik o podanej nazwie nie istnieje w bazie.");
         }
         logger.info(user.toString());

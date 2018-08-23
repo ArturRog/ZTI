@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <th:block th:insert="fragments :: headerfiles"/>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <th:block th:insert="fragments :: navigation"/>
+
+        <!--Page content-->
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Dodaj sesję treningową</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row" th:if="${trainingSession==null}">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form action="#" th:action="@{/zti/addSession(numberOfExercises=${exercises}, dateOfSession=${sessionDate})}" method="post">
+                                        <div class="form-group">
+                                            <label>Liczba ćwiczeń</label>
+                                            <input class="form-control" placeholder="Liczba ćwiczeń" th:field="*{exercises}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Data treningu</label>
+                                            <input class="form-control" placeholder="Data treningu" th:field="*{sessionDate}">
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Dodaj</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" th:if="${trainingSession!=null}">
+
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <th:block th:insert="fragments :: jQuery"/>
+
+</body>
+
+</html>

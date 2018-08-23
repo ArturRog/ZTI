@@ -1,0 +1,18 @@
+[
+  {
+    sessionDate=2018-08-11,
+    Highbar
+    Squat=115.0
+  },
+  {
+    Deadlift=150.0,
+    sessionDate=2018-08-15,
+    Squat=120.0
+  },
+  {
+    sessionDate=2018-08-23,
+    Highbar
+    Squat=140.0,
+    Squat=130.0
+  }
+]

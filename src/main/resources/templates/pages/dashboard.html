@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <th:block th:insert="fragments :: headerfiles"/>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <th:block th:insert="fragments :: navigation"/>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Witaj, <span th:text="${currentUser.username}"></span>!</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Wykresy
+                            <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    Rodzaje
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a onclick="showMe('weight')">Waga</a>
+                                    </li>
+                                    <li><a onclick="showMe('kcal')">Kalorie</a>
+                                    </li>
+                                    <li><a onclick="showMe('both')">Kalorie i waga</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div id="morris-area-kcal">
+                            Wykres kalorii
+                            <div id="morris-area-chart-kcal"></div>
+                        </div>
+                        <div id="morris-area-weight">
+                            Wykres kilogramów
+                            <div id="morris-area-chart-weight"></div>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+            </div>
+            <!-- /.col-lg-8 -->
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bell fa-fw"></i> Dzienniczek
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <form action="#" th:action="@{/zti/dashboard}" th:object="${userWeight}" method="post">
+                            <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                                <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                            </ul>
+                            <div class="form-group">
+                                <label>Dzisiejsza waga</label>
+                                <input class="form-control" th:field="*{weight}">
+                            </div>
+                            <div class="form-group">
+                                <label>Dzisiejsze kalorie</label>
+                                <input class="form-control"  th:field="*{calories}">
+                            </div>
+                            <input type="hidden" th:field="*{user}">
+                            <input type="hidden" th:field="*{date}">
+                            <button type="submit" name="save" class="btn btn-default">Zapisz</button>
+                        </form>
+                        <!-- /.list-group -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+                <!-- /.panel -->
+
+            </div>
+            <!-- /.col-lg-4 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<th:block th:insert="fragments :: jQuery"/>
+</body>
+
+</html>

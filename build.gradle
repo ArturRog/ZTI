@@ -28,13 +28,6 @@ sourceCompatibility = 1.8
 bootJar{
     baseName = 'zti'
     version = '0.1.0'
-    archiveName = 'ztiArch'
-}
-docker {
-    dependsOn build
-    name "${bootJar.baseName}"
-    files bootJar.archivePath
-    buildArgs(['JAR_FILE': "${bootJar.archiveName}"])
 }
 
 repositories {

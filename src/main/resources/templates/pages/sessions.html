@@ -48,13 +48,7 @@
                                     <table>
                                         <tbody>
                                         <tr th:each="ew,rowStat : ${ts.exercises}">
-                                            <td th:text="${rowStat.count}"></td>
-                                            <td th:text="${ew.exercise.id}"></td>
-                                            <td th:text="${ew.exercise.name}"></td>
-                                            <td th:text="${ew.weight}"></td>
-                                            <td th:text="${ew.reps}"></td>
-                                            <td th:text="${ew.rpe}"></td>
-                                            <td th:text="${ew.notes}"></td>
+                                            <td th:text="${ew.exercise.name} + ' ciężar: ' + ${ew.weight} + ' liczba powtórzeń: ' + ${ew.reps} + ' trudność: ' + ${ew.weight} + ' uwagi: '+ ${ew.notes}"></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -128,7 +122,7 @@
                                                         <input type="text" th:field="*{exercises[__${rowStat.index}__].notes}" th:errorclass="fieldError" />
                                                     </td>
                                                     <td>
-                                                        <button type="submit" class="btn-sm btn-danger btn-outline" name="removeExercise" th:value="${rowStat.index}">Remove exercise</button>
+                                                        <button type="submit" class="btn-sm btn-danger btn-outline" name="removeExercise" th:value="${rowStat.index}">Usuń ćwiczenie</button>
                                                     </td>
                                                 </tr>
                                                 </tbody>

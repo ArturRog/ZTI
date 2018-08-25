@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,12 +45,21 @@ public class ExerciseService {
             .collect(Collectors.toSet());
     }
 
+    public Set<String> findAllUserExercisesNames(){
+        List<Exercise> allExercise = findAllExercise();
+        return new TreeSet<>(allExercise.stream().map(Exercise::getName).collect(Collectors.toSet()));
+    }
+
     public List<Exercise> findByName(String exerciseName) {
         return exerciseRepository.findByName(exerciseName);
     }
 
     public void save(Exercise exercise) {
         exerciseRepository.save(exercise);
+    }
+
+    public void save(ExerciseWrapper exerciseWrapper){
+        exerciseWrapperRepository.save(exerciseWrapper);
     }
 
     public List<ExerciseWrapper> exercisesFromTrainingSessionsByUser() {

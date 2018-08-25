@@ -19,7 +19,7 @@ function showExercise(e) {
             data: myDataDonut.myData,
             xkey: 'sessionDate',
             ykeys: [myDataDonut.names[e]],
-            labels: [myDataDonut.names[e]],
+            labels: [myDataDonut.namesComplete[e]],
             pointSize: 2,
             hideHover: 'auto',
             resize: true,

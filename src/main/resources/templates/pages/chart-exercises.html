@@ -36,7 +36,7 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
-                                    <li th:each="exercise,iter : ${userExercises}"><a th:onclick="'showExercise(\''+ ${iter.index} +'\')'" th:value="${exercise.name}" th:text="${exercise.name}"></a></li>
+                                    <li th:each="exercise,iter : ${userExercisesNames}"><a th:onclick="'showExercise(\''+ ${iter.index} +'\')'" th:value="${exercise}" th:text="${exercise}"></a></li>
                                 </ul>
                             </div>
                         </div>

@@ -3,6 +3,7 @@ package com.artur.zti.exercise.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "exercise")
@@ -13,11 +14,11 @@ public class Exercise implements Serializable {
     @JsonIgnore
     private long id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 80)
     private String name;
 
     @JsonIgnore
-    @Column(name = "description")
+    @Column(name = "description", length = 80)
     private String description;
 
     public Exercise(String name, String description) {

@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,30 +51,16 @@ public class ChartsController extends BaseController {
     @ModelAttribute(name = "userExercises")
     public List<Exercise> populateUserExercises() {
         return new ArrayList<>(exerciseService.findAllUserExercises());
-//        List<Exercise> e = new ArrayList<>();
-//        e.add(new Exercise("Przysiad", "przysiad"));
-//        e.add(new Exercise("Lawka plaska", "lawka plaska"));
-//        e.add(new Exercise("Martwy ciag", "martwy ciag"));
-//        e.add(new Exercise("Drazek", "podciaganie sie"));
-//        return e;
+    }
+    @ModelAttribute(name = "userExercisesNames")
+    public List<String> populateUserExercisesNames() {
+        return new ArrayList<>(exerciseService.findAllUserExercisesNames());
     }
 
     @RequestMapping(path = "/charts-user", produces = "application/json")
     @ResponseBody
     public List<UserWeight> getUserWeightsString() {
-
         return userService.findUserWeight();
-
-//        List<UserWeight> uw = new ArrayList<>();
-//        uw.add(new UserWeight(null, LocalDate.now(), 80., 2500));
-//        uw.add(new UserWeight(null, LocalDate.now().minusDays(2), 83.5, 3000));
-//        uw.add(new UserWeight(null, LocalDate.now().minusDays(3), 85., 2700));
-//        uw.add(new UserWeight(null, LocalDate.now().minusDays(8), 82., 2700));
-//        uw.add(new UserWeight(null, LocalDate.now().minusDays(4), 88., 2900));
-//        uw.add(new UserWeight(null, LocalDate.now().minusDays(5), 84., 3000));
-//        uw.add(new UserWeight(null, LocalDate.now().minusDays(6), 85., 1700));
-//        uw.add(new UserWeight(null, LocalDate.now().minusDays(7), 86., 2700));
-//        return uw;
     }
 
     @RequestMapping(path = "/charts-sessions", produces = "application/json")
@@ -95,47 +82,24 @@ public class ChartsController extends BaseController {
     @RequestMapping(path = "/charts-exercises", produces = "application/json")
     @ResponseBody
     public ChartWrapper getUserExercises() {
-        //todo pobrac liste cwiczen dla uzytkownika, dla kazdego cwiczenia wykres?
-//        List<TrainingSession> sessionByUser = new ArrayList<>();
-//
-//        List<ExerciseWrapper> ew = new ArrayList<>();
-//        ew.add(new ExerciseWrapper(new Exercise("Przysiad", "przysiad"), 120., 5, 9, ""));
-//        ew.add(new ExerciseWrapper(new Exercise("Lawka", "dsadsa"), 140., 7, 9, ""));
-//        ew.add(new ExerciseWrapper(new Exercise("MC", "martwy"), 160., 3, 9, ""));
-//
-//        List<ExerciseWrapper> ew2 = new ArrayList<>();
-//        ew2.add(new ExerciseWrapper(new Exercise("Przysiad", "przysiad"), 130., 5, 9, ""));
-//        ew2.add(new ExerciseWrapper(new Exercise("MC", "martwy"), 170., 3, 9, ""));
-//
-//        List<ExerciseWrapper> ew3 = new ArrayList<>();
-//        ew3.add(new ExerciseWrapper(new Exercise("Przysiad", "przysiad"), 140., 5, 9, ""));
-//        ew3.add(new ExerciseWrapper(new Exercise("MC", "martwy"), 150., 3, 9, ""));
-//        ew3.add(new ExerciseWrapper(new Exercise("Lawka", "lawka"), 110., 3, 9, ""));
-//
-//        sessionByUser.add(new TrainingSession(ew, LocalDate.now().minusDays(3), null));
-//        sessionByUser.add(new TrainingSession(ew2, LocalDate.now().minusDays(2), null));
-//        sessionByUser.add(new TrainingSession(ew3, LocalDate.now().minusDays(1), null));
-//        sessionByUser.add(new TrainingSession(ew2, LocalDate.now(), null));
-//
-//
         List<HashMap<String, Object>> chartWrapper = new ArrayList<>();
         List<TrainingSession> sessionByUser = trainingSessionService.getTrainingSessionByUser();
-        Set<String> exerciseNames = new HashSet<>();
+        Set<String> exerciseNames = new TreeSet<>();
+        Set<String> exerciseNamesComplete = new TreeSet<>();
 
         for (TrainingSession session : sessionByUser) {
             HashMap<String, Object> tmp = new HashMap<>();
             tmp.put("sessionDate", session.getSessionDate());
             for (ExerciseWrapper wrapper : session.getExercises()) {
-                exerciseNames.add(wrapper.getExercise().getName());
-                tmp.put(wrapper.getExercise().getName().replaceAll(" ", ""), wrapper.getWeight());
+                String nameComplete = wrapper.getExercise().getName();
+                String name = nameComplete.replaceAll(" ", "");
+                exerciseNamesComplete.add(nameComplete);
+                exerciseNames.add(name);
+                tmp.put(name, wrapper.getWeight());
             }
             chartWrapper.add(tmp);
         }
-        System.out.println("===============");
-        System.out.println(chartWrapper);
-
-
-        return new ChartWrapper(chartWrapper, new ArrayList<>(exerciseNames));
+        return new ChartWrapper(chartWrapper, new ArrayList<>(exerciseNames), new ArrayList<>(exerciseNamesComplete));
     }
 
     @RequestMapping(path = "/charts/sessions")
@@ -176,10 +140,12 @@ public class ChartsController extends BaseController {
     class ChartWrapper {
         List<HashMap<String, Object>> myData;
         List<String> names;
+        List<String> namesComplete;
 
-        public ChartWrapper(List<HashMap<String, Object>> data, List<String> names) {
-            this.myData = data;
+        public ChartWrapper(List<HashMap<String, Object>> myData, List<String> names, List<String> namesComplete) {
+            this.myData = myData;
             this.names = names;
+            this.namesComplete = namesComplete;
         }
 
         public List<HashMap<String, Object>> getMyData() {
@@ -188,6 +154,10 @@ public class ChartsController extends BaseController {
 
         public List<String> getNames() {
             return names;
+        }
+
+        public List<String> getNamesComplete() {
+            return namesComplete;
         }
     }
 }

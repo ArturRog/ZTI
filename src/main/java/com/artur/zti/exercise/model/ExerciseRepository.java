@@ -9,3 +9,4 @@ public interface ExerciseRepository extends CrudRepository<Exercise,Long> {
     List<Exercise> findByName(String name);
     List<Exercise> findAll();
 }
+

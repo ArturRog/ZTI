@@ -64,6 +64,10 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void save(UserWeight userWeight){
+        userWeightRepository.save(userWeight);
+    }
+
     public void saveUserWeight(UserWeight userWeight){
         try{
             List<UserWeight> userWeights = userWeightRepository.findByUser(userWeight.getUser());
